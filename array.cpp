@@ -24,7 +24,8 @@ class Array{
     void display_array();
     void append_element(Array *p,int x);
     void insert_element(Array *p,int index,int x);
-    void delete_element(Array *p,int index);
+    int delete_element(Array *p,int index);
+    void linear_search(Array *p,int key);
 
 };
 void Array::display_array(){
@@ -55,8 +56,10 @@ void Array::insert_element(Array *p,int index,int x){
   }
 }
 
-void Array::delete_element(Array *p,int index){
+int Array::delete_element(Array *p,int index){
+   int num;
    if(index<p->length){
+      num=p->aptr[index];
     for(int i=index;i<(p->length-1);i++){
       p->aptr[i]=p->aptr[i+1];
 
@@ -64,6 +67,20 @@ void Array::delete_element(Array *p,int index){
     p->aptr[length-1]=0;
     p->length--;
    }
+   return num;
+}
+
+void Array::linear_search(Array *p,int key){
+  bool found=false;
+  for(int i=0;i<length;i++){
+    if(p->aptr[i]==key){
+      cout<<"The search was succesful and we found element "<<key<<" at index "<<i;
+          found=true;
+    }
+   
+  }
+  if(found==false)
+      cout<<"The search was unsuccessful";
 }
 
 int main(){
@@ -74,8 +91,11 @@ int main(){
    //A.insert_element(&A,2,23);
    //A.display_array();
    //A.append_element(&A,5);
-   A.delete_element(&A,2);
+   //int num;
+   //num=A.delete_element(&A,2);
    A.display_array();
+   //cout<<"The value deleted is:"<<num;
+   A.linear_search(&A,10);
 
    
 
