@@ -24,6 +24,7 @@ class Array{
     void display_array();
     void append_element(Array *p,int x);
     void insert_element(Array *p,int index,int x);
+    void delete_element(Array *p,int index);
 
 };
 void Array::display_array(){
@@ -54,14 +55,26 @@ void Array::insert_element(Array *p,int index,int x){
   }
 }
 
+void Array::delete_element(Array *p,int index){
+   if(index<p->length){
+    for(int i=index;i<(p->length-1);i++){
+      p->aptr[i]=p->aptr[i+1];
+
+    }
+    p->aptr[length-1]=0;
+    p->length--;
+   }
+}
+
 int main(){
    Array A;
    A.set_array();
    //A.display_array();
    //A.append_element(19);
-   A.insert_element(&A,2,23);
+   //A.insert_element(&A,2,23);
    //A.display_array();
    //A.append_element(&A,5);
+   A.delete_element(&A,2);
    A.display_array();
 
    
