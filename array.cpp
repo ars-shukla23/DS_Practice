@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cmath>
 
 using namespace std;
 
@@ -25,7 +26,9 @@ class Array{
     void append_element(Array *p,int x);
     void insert_element(Array *p,int index,int x);
     int delete_element(Array *p,int index);
-    void linear_search(Array *p,int key);
+    int linear_search(Array *p,int key);
+    int binary_search(Array *p, int key);
+    int recur_binary(Array *p,int l,int h,int key);
 
 };
 void Array::display_array(){
@@ -70,17 +73,54 @@ int Array::delete_element(Array *p,int index){
    return num;
 }
 
-void Array::linear_search(Array *p,int key){
+int Array::linear_search(Array *p,int key){
   bool found=false;
-  for(int i=0;i<length;i++){
+  for(int i=0;i<p->length;i++){
     if(p->aptr[i]==key){
-      cout<<"The search was succesful and we found element "<<key<<" at index "<<i;
-          found=true;
+      return i;
     }
    
   }
-  if(found==false)
-      cout<<"The search was unsuccessful";
+  return -1;
+}
+
+int Array::binary_search(Array *p,int key){  
+  bool found=false;           //Pre-requisite of binary search is that the array must be sorted
+  int l=0;
+  int h=(p->length)-1;
+  int mid;
+  while(l<=h ||p->aptr[mid]!=key){
+        mid=floor((l+h)/2);
+        if(p->aptr[mid]==key){
+           return mid;
+           
+        }
+        else if(key<(p->aptr[mid])){
+           h=mid-1;
+        }
+        else if(key>(p->aptr[mid])){
+            l=mid+1;
+        }
+
+  }
+  return -1;
+}
+
+int Array::recur_binary(Array *p,int l,int h,int key){
+  if(l<=h){
+    int mid=floor((l+h/2));
+    if(p->aptr[mid]==key){
+      return mid;
+    }
+    else if(key<p->aptr[mid]){
+      return recur_binary(p,l,mid-1,key);
+
+    }
+    else if(key>p->aptr[mid]){
+      return recur_binary(p,mid+1,h,key);
+    }
+  }
+  return -1;
 }
 
 int main(){
@@ -93,9 +133,12 @@ int main(){
    //A.append_element(&A,5);
    //int num;
    //num=A.delete_element(&A,2);
-   A.display_array();
+   //int n=A.binary_search(&A,7);
+   //A.display_array();
    //cout<<"The value deleted is:"<<num;
-   A.linear_search(&A,10);
+   //A.linear_search(&A,10);
+   int n=A.recur_binary(&A,0,7,13);
+   cout<<n;
 
    
 
