@@ -8,20 +8,23 @@ class Array{
        int *aptr;
        int size;
        int length;
-  public: 
-    Array(){
-        cout<<"Enter the size of your array:";
+  public:
+   Array(){
+    cout<<"Enter the size of your array:";
         cin>>size;
         cout<<"Enter the number of elements you want in your array:";
         cin>>length;
         aptr=new int[size];
-    }
+   }
+    
+    
     void set_array(){
         
         cout<<"Enter your elements:\n";
         for(int i=0;i<length;i++)
            cin>>aptr[i];      
     }
+    
     void display_array();
     void append_element(Array *p,int x);
     void insert_element(Array *p,int index,int x);
@@ -33,8 +36,14 @@ class Array{
     void set(Array *p,int index,int value);
     int max(Array p);
     int min(Array p);
+    int sum(Array p);
+    int recur_sum(Array p,int n);
+    void reverse(Array *p);
+    
 
 };
+
+
 void Array::display_array(){
     cout<<"The array elements are:";
     for(int i=0;i<length;i++)
@@ -86,6 +95,16 @@ int Array::linear_search(Array p,int key){
    
   }
   return -1;
+}
+
+void Array::reverse(Array *p){
+  int arr[p->length];
+  for(int i=0;i<p->length;i++){
+    arr[i]=p->aptr[(p->length)-i-1];
+  }
+  for(int i=0;i<p->length;i++){
+    p->aptr[i]=arr[i];
+  }
 }
 
 int Array::binary_search(Array p,int key){  
@@ -157,12 +176,27 @@ int Array::min(Array p){
   return min;
 }
 
+int Array::sum(Array p){
+  int sum=0;
+  for(int i=0;i<p.length;i++){
+    sum+=p.aptr[i];
+  }
+  return sum;
+}
+
+int Array::recur_sum(Array p,int n){
+   int sum;
+   if(n!=0){
+      return recur_sum(p,n-1)+p.aptr[n-1];
+   }
+   return 0;
+}
 
 
 int main(){
    Array A;
    A.set_array();
-   //A.display_array();
+   A.display_array();
    //A.append_element(19);
    //A.insert_element(&A,2,23);
    //A.display_array();
@@ -175,9 +209,13 @@ int main(){
    //A.linear_search(&A,10);
    //int n=A.recur_binary(&A,0,7,13);
    //cout<<n;
-   int max,min;
-   cout<<"The max element is: "<<A.max(A)<<endl;
-   cout<<"The min element is: "<<A.min(A)<<endl;
+   //int max,min;
+   //cout<<"The max element is: "<<A.max(A)<<endl;
+   //cout<<"The min element is: "<<A.min(A)<<endl;
+   //int sum;
+   //cout<<"The sum of the elements of the array are: "<<A.recur_sum(A,4)<<endl;
+   A.reverse(&A);
+   A.display_array();
    
 
 
