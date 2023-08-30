@@ -43,8 +43,11 @@ class Array{
     void rshift(Array *p);
     void r_rotate(Array *p);
     void l_rotate(Array *p);
-    int is_sorted();
+    bool is_sorted();
     void insert_at_sorted(Array *p,int x);
+    void insert_at_sorted_2(Array *p,int x);
+    void negative_num_on_left(Array *p);
+
     
 
 };
@@ -231,17 +234,13 @@ void Array::r_rotate(Array *p){
    p->aptr[0]=v;
 }
 
-int Array::is_sorted(){
+bool Array::is_sorted(){
   int l=0;
   for(int i=0;i<length-1;i++){
     if(aptr[i]>aptr[i+1])
-       l++;  
+       return false;  
   }
-  if(l==0)
-     return 1;
-  
-  
-  return 0;
+  return true;
      
 }
 
@@ -261,8 +260,33 @@ void Array::insert_at_sorted(Array *p,int x){
    p->length++;
 }
 
-void negative_num_on_left(Array *p){
-  
+void Array::insert_at_sorted_2(Array *p,int x){
+   int i=p->length-1;
+   while(p->aptr[i]>x){
+     p->aptr[i+1]=p->aptr[i];
+     i--;
+   }
+   p->aptr[i+1]=x;
+   p->length++;
+}
+
+void Array:: negative_num_on_left(Array *p){
+  int *f=&(p->aptr[0]);
+  int *l=&(p->aptr[p->length-1]);
+  while(f<l){
+  while(*f<0){
+    f++;
+  }
+  while(*l>0){
+    l--;
+  }
+    if(f<l){
+        int temp;
+        temp=*f;
+        *f=*l;
+        *l=temp;
+    }
+  }
 }
 
 
@@ -294,9 +318,10 @@ int main(){
    //A.display_array();
    //int n=A.is_sorted();
    //cout<<n;
-   A.insert_at_sorted(&A,10);
+   //A.insert_at_sorted_2(&A,10);
+   //A.display_array();
+   A.negative_num_on_left(&A);
    A.display_array();
-   
 
 
    return 0;
