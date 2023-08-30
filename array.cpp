@@ -39,6 +39,10 @@ class Array{
     int sum(Array p);
     int recur_sum(Array p,int n);
     void reverse(Array *p);
+    void lshift(Array *p);
+    void rshift(Array *p);
+    void r_rotate(Array *p);
+    void l_rotate(Array *p);
     
 
 };
@@ -46,8 +50,10 @@ class Array{
 
 void Array::display_array(){
     cout<<"The array elements are:";
-    for(int i=0;i<length;i++)
+    for(int i=0;i<length;i++){
             cout<<aptr[i]<<" ";
+    }
+    cout<<"\n";
     
 
 }
@@ -192,6 +198,37 @@ int Array::recur_sum(Array p,int n){
    return 0;
 }
 
+void Array::lshift(Array *p){
+  for(int i=0;i<p->length-1;i++){
+    p->aptr[i]=p->aptr[i+1];
+  }
+  p->aptr[(p->length)-1]=0;
+}
+
+void Array::rshift(Array *p){
+  for(int i=p->length-2;i>-1;i--){
+    p->aptr[i+1]=p->aptr[i];
+  }
+  p->aptr[0]=0;
+}
+
+void Array::l_rotate(Array *p){
+  int v=p->aptr[0];
+  for(int i=0;i<p->length-1;i++){
+    p->aptr[i]=p->aptr[i+1];
+   }
+   p->aptr[p->length-1]=v;
+
+}
+
+void Array::r_rotate(Array *p){
+  int v=p->aptr[p->length-1];
+   for(int i=p->length-2;i>-1;i--){
+    p->aptr[i+1]=p->aptr[i];
+   }
+   p->aptr[0]=v;
+}
+
 
 int main(){
    Array A;
@@ -214,7 +251,9 @@ int main(){
    //cout<<"The min element is: "<<A.min(A)<<endl;
    //int sum;
    //cout<<"The sum of the elements of the array are: "<<A.recur_sum(A,4)<<endl;
-   A.reverse(&A);
+   //A.reverse(&A);
+   //A.rshift(&A);
+   A.r_rotate(&A);
    A.display_array();
    
 
