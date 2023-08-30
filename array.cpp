@@ -43,6 +43,8 @@ class Array{
     void rshift(Array *p);
     void r_rotate(Array *p);
     void l_rotate(Array *p);
+    int is_sorted();
+    void insert_at_sorted(Array *p,int x);
     
 
 };
@@ -229,6 +231,41 @@ void Array::r_rotate(Array *p){
    p->aptr[0]=v;
 }
 
+int Array::is_sorted(){
+  int l=0;
+  for(int i=0;i<length-1;i++){
+    if(aptr[i]>aptr[i+1])
+       l++;  
+  }
+  if(l==0)
+     return 1;
+  
+  
+  return 0;
+     
+}
+
+void Array::insert_at_sorted(Array *p,int x){
+  int pos;
+  for(int i=0;i<p->length;i++){
+    if(x<(p->aptr[i])){
+      pos=i;
+      break;
+    }
+  }
+  for(int i=length-1;i>pos-1;i--){
+    p->aptr[i+1]=p->aptr[i];
+
+  }
+   p->aptr[pos]=x;
+   p->length++;
+}
+
+void negative_num_on_left(Array *p){
+  
+}
+
+
 
 int main(){
    Array A;
@@ -253,7 +290,11 @@ int main(){
    //cout<<"The sum of the elements of the array are: "<<A.recur_sum(A,4)<<endl;
    //A.reverse(&A);
    //A.rshift(&A);
-   A.r_rotate(&A);
+   //A.r_rotate(&A);
+   //A.display_array();
+   //int n=A.is_sorted();
+   //cout<<n;
+   A.insert_at_sorted(&A,10);
    A.display_array();
    
 
