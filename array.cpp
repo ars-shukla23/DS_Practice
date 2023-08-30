@@ -49,6 +49,9 @@ class Array{
     void insert_at_sorted_2(Array *p,int x);
     void negative_num_on_left(Array *p);
     void merging_in_order(Array p,Array q);
+    void union_of_array(Array p,Array q);
+    void intersection_of_array(Array p,Array q);
+    void difference_of_array(Array p,Array q);
 
     
 
@@ -326,6 +329,67 @@ void Array::merging_in_order(Array p,Array q){ //Both arrays must be sorted to b
    
 }
 
+void Array::union_of_array(Array p,Array q){
+  int m=p.length;
+  int n=q.length;
+  int count=0;
+  for(int i=0;i<m;i++){
+    this->aptr[i]=p.aptr[i];
+  }
+  for(int i=0;i<n;i++){
+    bool insert=true;
+    for(int j=0;j<m;j++){
+      if(q.aptr[i]==p.aptr[j]){
+         insert=false;
+         break;
+      }
+    }
+    if(insert==true){
+       this->aptr[m+count]=q.aptr[i];
+       count++;
+    }
+
+  }
+  this->length=m+count;
+
+}
+
+void Array::intersection_of_array(Array p,Array q){
+ int m=p.length;
+ int n=q.length;
+ int count=0;
+
+ for(int i=0;i<n;i++){
+  for(int j=0;j<m;j++){
+    if(q.aptr[i]==p.aptr[j]){
+      this->aptr[count]=q.aptr[i];
+      count++;
+    }
+  }
+  
+ }
+ this->length=count;
+
+}
+
+void Array::difference_of_array(Array p,Array q){
+ int m=p.length;
+ int n=q.length;
+ int count=0;
+ bool insert=false;
+
+ for(int i=0;i<m;i++){
+  for(int j=0;j<n;j++){
+    if(p.aptr[i]!=q.aptr[j]){
+          
+    }
+  }
+  
+ }
+ this->length=count;
+
+}
+
 
 
 
@@ -364,8 +428,11 @@ int main(){
    B.set_array();
    B.display_array();
    Array C;
-   C.merging_in_order(A,B);
+   //C.merging_in_order(A,B);
+   //C.display_array();
+   C.difference_of_array(A,B);
    C.display_array();
+   
 
 
 
