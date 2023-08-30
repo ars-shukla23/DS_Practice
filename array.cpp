@@ -12,14 +12,15 @@ class Array{
    Array(){
     cout<<"Enter the size of your array:";
         cin>>size;
-        cout<<"Enter the number of elements you want in your array:";
-        cin>>length;
+        //cout<<"Enter the number of elements you want in your array:";
+        //cin>>length;
         aptr=new int[size];
    }
     
     
     void set_array(){
-        
+        cout<<"Enter your array length:";
+        cin>>length;
         cout<<"Enter your elements:\n";
         for(int i=0;i<length;i++)
            cin>>aptr[i];      
@@ -47,6 +48,7 @@ class Array{
     void insert_at_sorted(Array *p,int x);
     void insert_at_sorted_2(Array *p,int x);
     void negative_num_on_left(Array *p);
+    void merging_in_order(Array p,Array q);
 
     
 
@@ -289,6 +291,42 @@ void Array:: negative_num_on_left(Array *p){
   }
 }
 
+void Array::merging_in_order(Array p,Array q){ //Both arrays must be sorted to begin with for the function to work.(Important new logic here)
+   
+
+   int a=0,b=0,c=0;
+   int m=p.length;
+   int n=q.length;
+
+   while(a<m && b<n){
+   if(p.aptr[a]<q.aptr[b]){
+    this->aptr[c]=p.aptr[a];
+    c++;
+    a++;
+   }
+
+   else if(q.aptr[b]<p.aptr[a]){
+    this->aptr[c]=q.aptr[b];
+    c++;
+    b++;
+   }
+
+   }
+   for(a;a<m;a++){
+    this->aptr[c]=p.aptr[a];
+    c++;
+   }
+   for(b;b<n;b++){
+    this->aptr[c]=q.aptr[b];
+    c++;
+   }
+
+   this->length=m+n;
+
+   
+}
+
+
 
 
 int main(){
@@ -320,8 +358,15 @@ int main(){
    //cout<<n;
    //A.insert_at_sorted_2(&A,10);
    //A.display_array();
-   A.negative_num_on_left(&A);
-   A.display_array();
+   //A.negative_num_on_left(&A);
+   //A.display_array();
+   Array B;
+   B.set_array();
+   B.display_array();
+   Array C;
+   C.merging_in_order(A,B);
+   C.display_array();
+
 
 
    return 0;
