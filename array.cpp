@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+#include<vector>
 
 using namespace std;
 
@@ -52,6 +53,8 @@ class Array{
     void union_of_array(Array p,Array q);
     void intersection_of_array(Array p,Array q);
     void difference_of_array(Array p,Array q);
+    int single_missing_in_sorted();
+    vector<int> multiple_missing_in_sorted();
 
     
 
@@ -390,6 +393,40 @@ void Array::difference_of_array(Array p,Array q){
 
 }
 
+int Array:: single_missing_in_sorted(){
+  int n=this->length;
+  int miss=0;
+  int c=1;
+  for(int i=0;i<n;i++){
+    if(this->aptr[i]!=c){
+      //miss=this->aptr[i];
+      break;
+      return c;
+      
+    }
+    c++;
+
+  }
+   return c;
+
+}
+
+vector<int> Array::multiple_missing_in_sorted(){
+  vector<int> missing_elements;
+  int n=this->length;
+  int* arr=new int[n];
+  for(int i=0;i<n-1;i++){
+    if((this->aptr[i+1])-(this->aptr[i])>1){
+      int diff=(this->aptr[i+1])-(this->aptr[i]);
+       for(int j=this->aptr[i];j<this->aptr[i]+diff-1;j++){
+           missing_elements.push_back(j+1);
+        
+       }
+    }
+  }
+  return missing_elements;
+}
+
 
 
 
@@ -424,14 +461,21 @@ int main(){
    //A.display_array();
    //A.negative_num_on_left(&A);
    //A.display_array();
-   Array B;
-   B.set_array();
-   B.display_array();
-   Array C;
+   //Array B;
+   //B.set_array();
+   //B.display_array();
+   //Array C;
    //C.merging_in_order(A,B);
    //C.display_array();
-   C.difference_of_array(A,B);
-   C.display_array();
+   //C.difference_of_array(A,B);
+   //C.display_array();
+   vector<int> missing_elements=A.multiple_missing_in_sorted();
+   vector<int>:: iterator it=missing_elements.begin();
+   cout<<"The missing elements are:";
+   for(it;it<missing_elements.end();it++){
+     cout<<*it<<" ";
+   }
+     
    
 
 
