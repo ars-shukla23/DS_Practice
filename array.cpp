@@ -55,6 +55,7 @@ class Array{
     void difference_of_array(Array p,Array q);
     int single_missing_in_sorted();
     vector<int> multiple_missing_in_sorted();
+    vector<int> pair_of_elem_with_sum_k(int k);
 
     
 
@@ -427,6 +428,22 @@ vector<int> Array::multiple_missing_in_sorted(){
   return missing_elements;
 }
 
+vector<int> Array::pair_of_elem_with_sum_k(int k){
+  vector<int> pair_with_k_sum;
+  int n=this->length;
+  for(int i=0;i<n;i++){
+      for(int j=0;j<n;j++){
+        if((this->aptr[i]+this->aptr[j]==k) && (i!=j)){
+             pair_with_k_sum.push_back(this->aptr[i]);
+             pair_with_k_sum.push_back(this->aptr[j]);
+             goto resumption;
+        }
+      }
+  }
+  resumption:
+  return pair_with_k_sum;
+}
+
 
 
 
@@ -469,13 +486,25 @@ int main(){
    //C.display_array();
    //C.difference_of_array(A,B);
    //C.display_array();
+
+   /*
    vector<int> missing_elements=A.multiple_missing_in_sorted();
    vector<int>:: iterator it=missing_elements.begin();
    cout<<"The missing elements are:";
    for(it;it<missing_elements.end();it++){
      cout<<*it<<" ";
    }
-     
+   */
+   
+   int sum;
+   cout<<"Enter the sum value:";
+   cin>>sum;
+   vector<int> elements_with_sum_k=A.pair_of_elem_with_sum_k(sum);
+   vector<int>::iterator it=elements_with_sum_k.begin();
+   cout<<"The two elements with sum "<<sum<<" are: ";
+   for(it;it<elements_with_sum_k.end();it++){
+      cout<<*it<<" ";
+   }
    
 
 
