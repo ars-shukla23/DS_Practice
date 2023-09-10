@@ -56,6 +56,7 @@ class Array{
     int single_missing_in_sorted();
     vector<int> multiple_missing_in_sorted();
     vector<int> pair_of_elem_with_sum_k(int k);
+    vector<int> multiple_missing_in_unsorted();
 
     
 
@@ -444,6 +445,31 @@ vector<int> Array::pair_of_elem_with_sum_k(int k){
   return pair_with_k_sum;
 }
 
+vector<int> Array::multiple_missing_in_unsorted(){  //We are using hashing method here. Hence we are assuming that the first element is 1.
+  vector<int>missing_unsorted;
+  int max=0;
+  int n=this->length;
+  for(int i=0;i<n;i++){
+    if(this->aptr[i]>max){
+      max=this->aptr[i];
+    }
+  }
+
+
+  int *arr=new int[max+1];
+  arr[0]=1;
+  for(int i=0;i<n;i++){
+    arr[this->aptr[i]]=1;
+    
+  }
+
+  for(int i=0;i<max+1;i++){
+    if (arr[i]!=1){
+      missing_unsorted.push_back(i);
+    }
+  }
+  return missing_unsorted;
+}
 
 
 
@@ -491,21 +517,27 @@ int main(){
    vector<int> missing_elements=A.multiple_missing_in_sorted();
    vector<int>:: iterator it=missing_elements.begin();
    cout<<"The missing elements are:";
-   for(it;it<missing_elements.end();it++){
+   for(it;it!=missing_elements.end();it++){
      cout<<*it<<" ";
    }
    */
-   
+   /*
    int sum;
    cout<<"Enter the sum value:";
    cin>>sum;
    vector<int> elements_with_sum_k=A.pair_of_elem_with_sum_k(sum);
    vector<int>::iterator it=elements_with_sum_k.begin();
    cout<<"The two elements with sum "<<sum<<" are: ";
-   for(it;it<elements_with_sum_k.end();it++){
+   for(it;it!=elements_with_sum_k.end();it++){
       cout<<*it<<" ";
    }
-   
+   */
+   vector<int> missing_unsorted=A.multiple_missing_in_unsorted();
+   vector<int>::iterator it=missing_unsorted.begin();
+   cout<<"The missing elements are:";
+   for(it;it<missing_unsorted.end();it++){
+    cout<<*it<<" "; 
+   }
 
 
 
