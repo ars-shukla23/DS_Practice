@@ -6,6 +6,12 @@ using namespace std;
 class Node{
     int data;
     Node* next;
+    public:
+      Node(int val){
+         data=val;
+         next=NULL;
+
+      }
   
    friend class LinkedList;
 
@@ -14,21 +20,23 @@ class Node{
 class LinkedList{
     Node* head;
     public:
+    LinkedList(){
+        head=NULL;
+    }
     void create_ll(int* arr,int n);
     void display_ll();
 
 };
 
 void LinkedList::create_ll(int* arr,int n){
-  this->head->next=NULL;
-  this->head->data=arr[0];
+  this->head=new Node(arr[0]);
   Node* p=this->head;
   for(int i=1;i<n;i++){
-    p->next=new Node;
-    p->next->data=arr[i];
+    p->next=new Node(arr[i]);
+    //p->next->data=arr[i];
     p=p->next;
   }
-  p=NULL;
+  
   
 }
 
