@@ -21,7 +21,8 @@ vector<int> prime_factorization(int n){
         }
     }
     vector<int> vec2;
-    while(n!=1){
+    int x=vec.at(count);
+    while(n!=1 && x*x<=n){   //This(x*x<=n) improves time complexity. Reduces it from O(n) to O(sqrt(n)) Using the logic that Multiple of a number>=2*Number. Refer notes for further help
         while(n%vec.at(count)==0){
             n=n/vec.at(count);
             vec2.push_back(vec.at(count));
